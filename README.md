@@ -7,11 +7,7 @@ Since JSON Pointer works with references, you can use it to update the selected 
 
 ## Installing
 
-The project is available as an npm package. You can install it with the following command:
-
-```
-npm install untold-json-pointer -S
-```
+The application is currently in development. To be published to npm within a couple of days.
 
 ## Usage
 
