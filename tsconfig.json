@@ -1,0 +1,16 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/",
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "alwaysStrict": true,
+        "noImplicitThis": true,
+        "strictFunctionTypes": true,
+        "module": "commonjs",
+        "target": "es5",
+        "declaration": true
+    },
+    "include": ["./src/**/*", "./test/**/*"],
+    "exclude": ["node_modules"]
+}

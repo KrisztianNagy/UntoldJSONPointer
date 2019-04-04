@@ -1,0 +1,37 @@
+{
+    "name": "untold-json-pointer",
+    "version": "1.0.0",
+    "description": "",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "webpack --mode production",
+        "build:types": "tsc --emitDeclarationOnly",
+        "test": "webpack-dev-server --config webpack.config.browser.js --open \"Chrome\" "
+    },
+    "author": "",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.3.4",
+        "@babel/preset-typescript": "^7.3.3",
+        "@types/chai": "^4.1.7",
+        "@types/mocha": "^5.2.6",
+        "@types/node": "^11.11.0",
+        "@types/pegjs": "^0.10.1",
+        "babel-loader": "^8.0.5",
+        "chai": "^4.2.0",
+        "copy-webpack-plugin": "^5.0.0",
+        "mocha": "^6.0.2",
+        "pegjs-loader": "^0.5.4",
+        "source-map-loader": "^0.2.4",
+        "tslint-config-prettier": "^1.18.0",
+        "typescript": "^3.3.3333",
+        "webpack": "^4.29.6",
+        "webpack-cli": "^3.2.3",
+        "webpack-dev-server": "^3.2.1",
+        "webpack-node-externals": "^1.7.2"
+    },
+    "dependencies": {
+        "pegjs": "^0.10.0"
+    }
+}
