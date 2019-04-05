@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import { JSONPointer } from '../src/index';
+import JSONPointer from '../src/index';
 
 describe('Incorrect Query', () => {
     it('should fail on missing "." character', () => {

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 
-import { JSONPointer } from '../src/index';
+import JSONPointer from '../src/index';
 import character from './data/character';
 
 describe('Indexer - Position', () => {

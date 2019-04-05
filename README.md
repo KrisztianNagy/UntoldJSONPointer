@@ -15,29 +15,37 @@ For the purpose of this example we will write queries for the [Character](test/d
 
 ### Your first query
 
-First, import the mapper.
+First, import the json pointer library.
+
+For the web:
 
 ```javascript
-import { JSONPointer } from '../src/index';
+import JSONPointer from 'untold-jsonpointer';
+```
+
+In node:
+
+```javascript
+const JSONPointer = require('untold-json-pointer');
 ```
 
 Next, you should create a new instance from the JSON Pointer:
 
 ```javascript
-const mapper = new JSONPointer();
+const pointer = new JSONPointer();
 ```
 
-Let's say you want to get the name property of the character object. You have 2 ways to do this. You can pass the string into the mapper:
+Let's say you want to get the name property of the character object. You have 2 ways to do this. You can pass the string into the pointer:
 
 ```javascript
-const result = mapper.executeQuery(character, '.name');
+const result = pointer.executeQuery(character, '.name');
 ```
 
 Or you can create a query object first
 
 ```javascript
-const query = mapper.createQuery('.name');
-const result = mapper.executeQuery(character, query);
+const query = pointer.createQuery('.name');
+const result = pointer.executeQuery(character, query);
 ```
 
 The second aproach is useful when you want to execute the same query on different objects because you save time on parsing.
@@ -77,8 +85,8 @@ result.getSingle();
 Every member in the path are being identified with the '.' character. That's also true for the root member.
 
 ```javascript
-const nameOfCharacter = mapper.executeQuery(character, '.name');
-const nameOfWeapon = mapper.executeQuery(character, '.weapon.name');
+const nameOfCharacter = pointer.executeQuery(character, '.name');
+const nameOfWeapon = pointer.executeQuery(character, '.weapon.name');
 
 console.log(nameOfCharacter.getSingle()); // 'Conan'
 console.log(nameOfWeapon.getSingle()); // 'sword'
@@ -87,7 +95,7 @@ console.log(nameOfWeapon.getSingle()); // 'sword'
 You don't have to worry about missing members in your JSON.
 
 ```javascript
-const wrongPath = mapper.executeQuery(character, '.wrong.path');
+const wrongPath = pointer.executeQuery(character, '.wrong.path');
 
 console.log(wrongPath.getSingle()); // null
 ```
@@ -97,8 +105,8 @@ console.log(wrongPath.getSingle()); // null
 Indexers are very similar to their JavaScript counterparts. You can use numbers or string to access members of an object.
 
 ```javascript
-const nameOfTheFirstItem = mapper.executeQuery(character, '.items[0].name');
-const nameOfTheWeapon = mapper.executeQuery(character, '.weapon["name"]');
+const nameOfTheFirstItem = pointer.executeQuery(character, '.items[0].name');
+const nameOfTheWeapon = v.executeQuery(character, '.weapon["name"]');
 
 console.log(nameOfTheFirstItem.getSingle()); // 'flask'
 console.log(nameOfTheWeapon.getSingle()); // 'sword'
@@ -107,7 +115,7 @@ console.log(nameOfTheWeapon.getSingle()); // 'sword'
 It is also null-safe so you don't have to worry about going out of bounds.
 
 ```javascript
-const indexerOverLength = mapper.executeQuery(character, '.items[5].name');
+const indexerOverLength = pointer.executeQuery(character, '.items[5].name');
 
 console.log(indexerOverLength.getSingle()); // null
 ```
@@ -118,7 +126,7 @@ It is possible to access every single item in an array at the same time. The _|_
 each element.
 
 ```javascript
-const itemNames = mapper.executeQuery(character, '.items|name');
+const itemNames = pointer.executeQuery(character, '.items|name');
 
 console.log(itemNames.getSingle()); // "flask"
 console.log(itemNames.getAll()); // ["flask", "meat", "diamond", "golden key"]
@@ -134,16 +142,16 @@ Usually a filter looks like this: { lefthandSide operator righHandSide } The sid
 operators are available (<, <=, >, >=, ==, ===, !=, !==) and also we have a special operator for contains which is the ':' character.
 
 ```javascript
-const itemsWhereWeightGreateThanOne = mapper.executeQuery(character, '.items{ .weight > 1}');
+const itemsWhereWeightGreateThanOne = pointer.executeQuery(character, '.items{ .weight > 1}');
 console.log(itemsWhereWeightGreateThanOne); // [{"name":"diamond","weight":2,"quantity":1,"equipped":false}]
 ```
 
 The _true_, _false_, _null_ keywords are also avilable in the queries.
 
 ```javascript
-const equipped = mapper.executeQuery(character, '.items{ .equipped == true}');
-const notEquipped = mapper.executeQuery(character, '.items{ .equipped == true}');
-const withoutPrice = mapper.executeQuery(character, '.items{ .price == null}');
+const equipped = pointer.executeQuery(character, '.items{ .equipped == true}');
+const notEquipped = pointer.executeQuery(character, '.items{ .equipped == true}');
+const withoutPrice = pointer.executeQuery(character, '.items{ .price == null}');
 ```
 
 ### Setting values
@@ -151,8 +159,7 @@ const withoutPrice = mapper.executeQuery(character, '.items{ .price == null}');
 For simple queries you can use the _setSingle()_ method to set the value of the selected property.
 
 ```javascript
-const mapper = new JSONPointer();
-const result = mapper.executeQuery(character, '.name');
+const result = pointer.executeQuery(character, '.name');
 result.setSingle('Joe');
 
 console.log(character.name); // "Joe"

@@ -5,7 +5,7 @@ import { MappedResult } from './models/mapped-result';
 import { QueryElement } from './models/query-structure';
 import { QueryResult } from './models/query-result';
 
-export class JSONPointer {
+export default class JSONPointer {
     public createQuery(query: string): QueryResult {
         try {
             const parsedQuery: QueryElement = parser.parse(query, {

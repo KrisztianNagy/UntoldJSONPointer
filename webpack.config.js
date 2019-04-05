@@ -8,7 +8,8 @@ module.exports = {
     output: {
         filename: 'index.js',
         libraryTarget: 'umd',
-        library: 'lib',
+        library: 'JSONPointer',
+        libraryExport: 'default',
         umdNamedDefine: true,
         globalObject: `(typeof self !== 'undefined' ? self : this)`,
         path: path.resolve(__dirname, 'dist')
