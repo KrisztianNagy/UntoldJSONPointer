@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 
-import JSONMapper from '../src/index';
+import { JSONPointer } from '../src/index';
 import character from './data/character';
 
 describe('Filter - Logical gates', () => {
     it('should handle AND', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{ .name : "a" && .quantity == 1}');
 
         expect(result.getSingle()).not.eq(null);
@@ -14,7 +14,7 @@ describe('Filter - Logical gates', () => {
     });
 
     it('should handle OR', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{.weight == 1 || .weight == 2}');
 
         expect(result.getSingle()).not.eq(null);
@@ -24,7 +24,7 @@ describe('Filter - Logical gates', () => {
     });
 
     it('should handle precedence', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{.weight == 1 || .name: "a" && .weight == 2}');
 
         expect(result.getSingle()).not.eq(null);
@@ -34,7 +34,7 @@ describe('Filter - Logical gates', () => {
     });
 
     it('should handle precedence other way', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{.weight == 1 && .name: "a" || .weight == 2}');
 
         expect(result.getSingle()).not.eq(null);

@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import JSONMapper from '../src';
+import { JSONPointer } from '../src/index';
 import character from './data/character';
 
 describe('Setter', () => {
@@ -10,7 +10,7 @@ describe('Setter', () => {
     });
 
     it('should handle setSingle()', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(characterCopy, '.name');
 
         expect(result.getSingle()).eq('Conan');
@@ -21,7 +21,7 @@ describe('Setter', () => {
     });
 
     it('should handle setSingle() when has each operator', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(characterCopy, '.items{.equipped === false}|name');
 
         expect(result.getAll().length).eq(2);
@@ -33,7 +33,7 @@ describe('Setter', () => {
     });
 
     it('should handle setSingle() when has multiple operator', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
 
         const originalNoname = mapper.executeQuery(characterCopy, '.items{.description.short === "noname"}|description.short');
         expect(originalNoname.getAll().length).eq(0);
@@ -49,7 +49,7 @@ describe('Setter', () => {
     });
 
     it('should not fail on setSingle() when query is not matching', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(characterCopy, '.wrong.path');
         expect(result.getSingle()).eq(null);
         result.setSingle('Joe');
@@ -59,7 +59,7 @@ describe('Setter', () => {
     });
 
     it('should set property if only the last path member is missing', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(characterCopy, '.weapon.age');
         expect(result.getSingle()).eq(null);
         result.setSingle(1);
@@ -69,7 +69,7 @@ describe('Setter', () => {
     });
 
     it('should setAll() when has each operator', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(characterCopy, '.items{.equipped === false}|name');
         expect(result.getAll().length).eq(2);
 
@@ -80,7 +80,7 @@ describe('Setter', () => {
     });
 
     it('should handle setAll() when has multiple operator', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
 
         const originalNoname = mapper.executeQuery(characterCopy, '.items{.description.short === "noname"}|description.short');
         expect(originalNoname.getAll().length).eq(0);

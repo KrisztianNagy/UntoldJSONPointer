@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 
-import JSONMapper from '../src/index';
+import { JSONPointer } from '../src/index';
 import character from './data/character';
 
 describe('Filter - Parenthesis', () => {
     it('should handle ( || ) &&)', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{(.weight == 1 || .name: "a") && .weight == 2}');
 
         expect(result.getSingle()).not.eq(null);
@@ -14,7 +14,7 @@ describe('Filter - Parenthesis', () => {
     });
 
     it('should handle complex 1', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const query = mapper.createQuery('.items{(.weight == 1 || (.name: "a" && .name:"o") && (.weight == 2 || .name:"b"))}');
         console.log(query);
 
@@ -27,7 +27,7 @@ describe('Filter - Parenthesis', () => {
     });
 
     it('should handle complex 2', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const query = mapper.createQuery('.items{.weight == 1 || (.name: "a" && .name:"o") && (.weight == 2 || .name:"b")}');
         console.log(query);
 
@@ -40,7 +40,7 @@ describe('Filter - Parenthesis', () => {
     });
 
     it('should handle complex 3', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const query = mapper.createQuery('.items{.weight !== 2 || (.name: "a" && .name:"o") && (.weight == 2 || .name:"b")}');
         const result = mapper.executeQuery(character, query);
 

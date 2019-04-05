@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 
-import JSONMapper from '../src/index';
+import { JSONPointer } from '../src/index';
 import character from './data/character';
 
 describe('Filter - Token Comparers', () => {
     it('should handle not equal to', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{ .equipped != true}');
 
         expect(result.getSingle()).not.eq(null);
@@ -16,7 +16,7 @@ describe('Filter - Token Comparers', () => {
     });
 
     it('should handle typesafe not equal to', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{ .equipped !== true}');
 
         expect(result.getSingle()).not.eq(null);
@@ -27,7 +27,7 @@ describe('Filter - Token Comparers', () => {
     });
 
     it('should handle equal to', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{ .equipped == true}');
 
         expect(result.getSingle()).not.eq(null);
@@ -36,7 +36,7 @@ describe('Filter - Token Comparers', () => {
     });
 
     it('should handle typesafe equal to', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{ .equipped === true}');
 
         expect(result.getSingle()).not.eq(null);
@@ -45,7 +45,7 @@ describe('Filter - Token Comparers', () => {
     });
 
     it('should handle false', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{ .equipped == false}');
 
         expect(result.getSingle()).not.eq(null);
@@ -55,7 +55,7 @@ describe('Filter - Token Comparers', () => {
     });
 
     it('should handle typesafe false', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{ .equipped === false}');
 
         expect(result.getSingle()).not.eq(null);
@@ -65,7 +65,7 @@ describe('Filter - Token Comparers', () => {
     });
 
     it('should handle null', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{ .price == null}');
 
         expect(result.getSingle()).not.eq(null);

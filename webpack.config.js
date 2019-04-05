@@ -7,11 +7,14 @@ module.exports = {
     },
     output: {
         filename: 'index.js',
+        libraryTarget: 'umd',
+        library: 'lib',
+        umdNamedDefine: true,
+        globalObject: `(typeof self !== 'undefined' ? self : this)`,
         path: path.resolve(__dirname, 'dist')
     },
     resolve: {
         modules: ['node_modules'],
         extensions: ['.js', '.ts', '.pegjs']
-    },
-    devtool: '#inline-cheap-module-source-map'
+    }
 };

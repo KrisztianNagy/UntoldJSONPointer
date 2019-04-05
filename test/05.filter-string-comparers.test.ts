@@ -1,11 +1,11 @@
 import { expect } from 'chai';
 
-import JSONMapper from '../src/index';
+import { JSONPointer } from '../src/index';
 import character from './data/character';
 
 describe('Filter - String Comparers', () => {
     it('should handle not equal to', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{ .name != "flask"}');
 
         expect(result.getSingle().length).eq(3);
@@ -15,7 +15,7 @@ describe('Filter - String Comparers', () => {
     });
 
     it('should handle typesafe not equal to', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{ .name !== "flask"}');
 
         expect(result.getSingle().length).eq(3);
@@ -25,7 +25,7 @@ describe('Filter - String Comparers', () => {
     });
 
     it('should handle equal to', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{ .name == "flask"}');
 
         expect(result.getSingle().length).eq(1);
@@ -33,7 +33,7 @@ describe('Filter - String Comparers', () => {
     });
 
     it('should handle typesafe equal to', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{ .name === "flask"}');
 
         expect(result.getSingle()).not.eq(null);
@@ -42,7 +42,7 @@ describe('Filter - String Comparers', () => {
     });
 
     it('should handle contains', () => {
-        const mapper = new JSONMapper();
+        const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{ .name : "a"}');
 
         expect(result.getSingle()).not.eq(null);

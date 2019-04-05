@@ -18,13 +18,13 @@ For the purpose of this example we will write queries for the [Character](test/d
 First, import the mapper.
 
 ```javascript
-import JSONMapper from '../src/index';
+import { JSONPointer } from '../src/index';
 ```
 
 Next, you should create a new instance from the JSON Pointer:
 
 ```javascript
-const mapper = new JSONMapper();
+const mapper = new JSONPointer();
 ```
 
 Let's say you want to get the name property of the character object. You have 2 ways to do this. You can pass the string into the mapper:
@@ -151,7 +151,7 @@ const withoutPrice = mapper.executeQuery(character, '.items{ .price == null}');
 For simple queries you can use the _setSingle()_ method to set the value of the selected property.
 
 ```javascript
-const mapper = new JSONMapper();
+const mapper = new JSONPointer();
 const result = mapper.executeQuery(character, '.name');
 result.setSingle('Joe');
 

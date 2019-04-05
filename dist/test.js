@@ -11333,7 +11333,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-class JSONMapper {
+class JSONPointer {
   get(json, query) {
     let parsedQuery;
 
@@ -11353,7 +11353,7 @@ class JSONMapper {
 
 }
 
-/* harmony default export */ __webpack_exports__["default"] = (JSONMapper);
+/* harmony default export */ __webpack_exports__["default"] = (JSONPointer);
 
 /***/ }),
 

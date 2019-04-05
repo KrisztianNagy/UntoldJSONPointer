@@ -6,10 +6,7 @@ module.exports = {
     mode: 'development',
     entry: glob.sync('./test/**.test.ts'),
     module: {
-        rules: [
-            { test: /\.pegjs$/, loader: 'pegjs-loader' },
-            { test: /\.ts$/, exclude: /node_modules/, loader: 'babel-loader' }
-        ]
+        rules: [{ test: /\.pegjs$/, loader: 'pegjs-loader' }, { test: /\.ts$/, exclude: /node_modules/, loader: 'babel-loader' }]
     },
     output: {
         filename: 'test.js',

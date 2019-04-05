@@ -5,7 +5,7 @@ import { MappedResult } from './models/mapped-result';
 import { QueryElement } from './models/query-structure';
 import { QueryResult } from './models/query-result';
 
-class JSONMapper {
+export class JSONPointer {
     public createQuery(query: string): QueryResult {
         try {
             const parsedQuery: QueryElement = parser.parse(query, {
@@ -37,5 +37,3 @@ class JSONMapper {
         return new MappedResult(false, null, parsedQuery.error);
     }
 }
-
-export default JSONMapper;
