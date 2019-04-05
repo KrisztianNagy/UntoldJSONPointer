@@ -1,13 +1,17 @@
 # Untold JSON Pointer
 
 The JSON Pointer was created to get the reference of properties in a JSON object. It has its own simple query system which helps you traverse the property tree.
-It is also "null-safe" safe you don't have to check if every single step in your path exists or not.
+It is also "null-safe" you don't have to check if every single step in your path exists or not.
 
 Since JSON Pointer works with references, you can use it to update the selected property.
 
 ## Installing
 
-The application is currently in development. To be published to npm within a couple of days.
+Install with npm
+
+```
+npm install untold-json-pointer --save
+```
 
 ## Usage
 
