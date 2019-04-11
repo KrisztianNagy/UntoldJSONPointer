@@ -10,7 +10,7 @@
         "test": "webpack-dev-server --config webpack.config.browser.js --open \"Chrome\" "
     },
     "author": "",
-    "license": "ISC",
+    "license": "MIT",
     "devDependencies": {
         "@babel/core": "^7.3.4",
         "@babel/preset-typescript": "^7.3.3",

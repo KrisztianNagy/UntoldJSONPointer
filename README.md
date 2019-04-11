@@ -24,7 +24,7 @@ First, import the json pointer library.
 For the web:
 
 ```javascript
-import JSONPointer from 'untold-jsonpointer';
+import JSONPointer from 'untold-json-pointer';
 ```
 
 In node:
