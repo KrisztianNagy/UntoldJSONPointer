@@ -17,7 +17,11 @@ export class QueryProcessor extends PropertyPointerOperator {
     }
 
     public process(parsedQuery: QueryElement, json: any): PropertyPointer {
-        return this.resolveQuery(parsedQuery, null, json);
+        this.pointerHierarchy = [];
+
+        const lastPointer = this.resolveQuery(parsedQuery, null, json);
+        this.pointerHierarchy = [...this.pointerHierarchy, json];
+        return lastPointer;
     }
 
     resolveQuery(parsedQuery: QueryElement, previousPointer: PropertyPointer | null, json?: any): PropertyPointer {

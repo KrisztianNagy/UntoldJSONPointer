@@ -31,7 +31,11 @@ export default class JSONPointer {
         if (parsedQuery.isQueryValid && parsedQuery.query) {
             const processor = new QueryProcessor();
             const result = processor.process(<QueryElement>parsedQuery.query, json);
-            return new MappedResult(true, result);
+            const mappedResult = new MappedResult(true, result);
+
+            mappedResult.pointerHierarchy = processor.pointerHierarchy;
+
+            return mappedResult;
         }
 
         return new MappedResult(false, null, parsedQuery.error);

@@ -2,6 +2,12 @@ import { PropertyPointer } from './models/property-pointer';
 import { PropertyValue } from './models/property-value';
 
 export class PropertyPointerOperator {
+    public pointerHierarchy: PropertyPointer[];
+
+    constructor() {
+        this.pointerHierarchy = [];
+    }
+
     protected getNextPointer(pointer: PropertyPointer): PropertyPointer {
         let nextValue = this.getNextValue(pointer);
 
@@ -22,6 +28,8 @@ export class PropertyPointerOperator {
                 targetPosition: nextValue.value
             };
         }
+
+        this.pointerHierarchy = [nextValue.values ? nextValue.values : nextValue.value, ...this.pointerHierarchy];
 
         return result;
     }
