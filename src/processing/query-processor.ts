@@ -5,10 +5,10 @@ import {
     ValueElement,
     OperatorHierarchyElementMember,
     OperatorHierarchyElement
-} from './models/query-structure';
-import { OperationType } from './models/operation-type';
-import { MappedResult } from './models/mapped-result';
-import { PropertyPointer } from './models/property-pointer';
+} from '../models/query-structure';
+import { OperationType } from '../enum/operation-type';
+import { MappedResult } from './mapped-result';
+import { PropertyPointer } from '../models/property-pointer';
 import { PropertyPointerOperator } from './property-pointer-operator';
 
 export class QueryProcessor extends PropertyPointerOperator {
@@ -17,10 +17,7 @@ export class QueryProcessor extends PropertyPointerOperator {
     }
 
     public process(parsedQuery: QueryElement, json: any): PropertyPointer {
-        this.pointerHierarchy = [];
-
         const lastPointer = this.resolveQuery(parsedQuery, null, json);
-        this.pointerHierarchy = [...this.pointerHierarchy, json];
         return lastPointer;
     }
 
@@ -68,14 +65,15 @@ export class QueryProcessor extends PropertyPointerOperator {
 
     private filterAll(pointer: PropertyPointer, filterElement: OperatorHierarchyElementMember): PropertyPointer {
         const mappedPosition = new MappedResult(true, pointer);
-        const result: PropertyPointer = {
-            eachElement: false
+        const nextPointer: PropertyPointer = {
+            eachElement: false,
+            previous: pointer
         };
 
         if (pointer.multipleTargets) {
             const targets = mappedPosition.getAll();
 
-            result.multipleTargets = targets.map(target => {
+            nextPointer.multipleTargets = targets.map(target => {
                 return {
                     targetPosition: target,
                     propertyName: this.filterSingle(target, filterElement)
@@ -83,13 +81,13 @@ export class QueryProcessor extends PropertyPointerOperator {
             });
         } else if (pointer.singleTarget) {
             const target = mappedPosition.getSingle();
-            result.singleTarget = {
+            nextPointer.singleTarget = {
                 targetPosition: target,
                 propertyName: this.filterSingle(target, filterElement)
             };
         }
 
-        return result;
+        return nextPointer;
     }
 
     private filterSingle(filterableArray: any[], filterElement: OperatorHierarchyElementMember): number[] {

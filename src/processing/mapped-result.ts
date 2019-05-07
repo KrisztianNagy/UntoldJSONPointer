@@ -1,5 +1,5 @@
-import { PropertyPointer } from './property-pointer';
-import { PropertyPointerOperator } from '../property-pointer-operator';
+import { PropertyPointer } from '../models/property-pointer';
+import { PropertyPointerOperator } from './property-pointer-operator';
 
 export class MappedResult extends PropertyPointerOperator {
     resultCount() {
@@ -42,6 +42,21 @@ export class MappedResult extends PropertyPointerOperator {
         }
 
         return null;
+    }
+
+    parents(): any[] {
+        return this.parentsAt(0);
+    }
+
+    parentsAt(index: number): any[] {
+        if (!this.propertyPointer || (!this.propertyPointer.singleTarget && !this.propertyPointer.multipleTargets)) {
+            return [];
+        }
+
+        const value = this.getAt(index);
+
+        const referenceArray = this.getParentReferenceArray(this.propertyPointer, value);
+        return referenceArray;
     }
 
     setAll(value: any) {
@@ -126,6 +141,59 @@ export class MappedResult extends PropertyPointerOperator {
                 }
             }
         }
+    }
+
+    private getParentReferenceArray(pointer: PropertyPointer, reference: any): any[] {
+        if (pointer === null) {
+            return [];
+        }
+
+        let currentPointer: PropertyPointer | undefined = pointer;
+
+        let lastReference = reference;
+        const references = [];
+
+        while (currentPointer) {
+            if (currentPointer.singleTarget) {
+                if (currentPointer.eachElement) {
+                    for (let i = 0; i < currentPointer.singleTarget.targetPosition.length; i++) {
+                        const targetReference = currentPointer.singleTarget.targetPosition[i][<string>currentPointer.singleTarget.propertyName];
+
+                        if (targetReference === lastReference) {
+                            lastReference = currentPointer.singleTarget.targetPosition[i];
+                        }
+                    }
+                } else {
+                    lastReference = currentPointer.singleTarget.targetPosition;
+                }
+            } else if (currentPointer.multipleTargets) {
+                for (let i = 0; i < currentPointer.multipleTargets.length; i++) {
+                    const target = currentPointer.multipleTargets[i];
+
+                    if (currentPointer.eachElement && target.propertyName) {
+                        for (let j = 0; j < (<string[] | number[]>target.propertyName).length; j++) {
+                            const targetReference = target.targetPosition[(<string[] | number[]>target.propertyName)[j]];
+
+                            if (targetReference === lastReference) {
+                                lastReference = targetReference;
+                            }
+                        }
+                    } else {
+                        const targetReference = target.targetPosition[<number | string>target.propertyName];
+
+                        if (targetReference === lastReference) {
+                            lastReference = targetReference;
+                        }
+                    }
+                }
+            }
+
+            references.push(lastReference);
+            // [previousPointer, currentPointer] = [previousPointer.previous, previousPointer];
+            currentPointer = currentPointer.previous;
+        }
+
+        return references;
     }
 
     constructor(public isQueryValid: boolean, private propertyPointer: PropertyPointer | null, public error?: any) {

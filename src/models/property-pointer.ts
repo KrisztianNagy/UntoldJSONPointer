@@ -7,5 +7,5 @@ export interface PropertyPointer {
     singleTarget?: PropertyPointerTarget;
     multipleTargets?: PropertyPointerTarget[];
     eachElement: boolean;
-    pointerHierarchy?: [];
+    previous?: PropertyPointer;
 }

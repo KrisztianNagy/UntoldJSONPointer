@@ -1,37 +1,32 @@
-import { PropertyPointer } from './models/property-pointer';
-import { PropertyValue } from './models/property-value';
+import { PropertyPointer } from '../models/property-pointer';
+import { PropertyValue } from '../models/property-value';
 
 export class PropertyPointerOperator {
-    public pointerHierarchy: PropertyPointer[];
-
-    constructor() {
-        this.pointerHierarchy = [];
-    }
+    constructor() {}
 
     protected getNextPointer(pointer: PropertyPointer): PropertyPointer {
         let nextValue = this.getNextValue(pointer);
 
-        const result: PropertyPointer = {
-            eachElement: false
+        const nextPointer: PropertyPointer = {
+            eachElement: false,
+            previous: pointer
         };
 
         if (nextValue.values) {
-            result.multipleTargets = nextValue.values.map(val => {
+            nextPointer.multipleTargets = nextValue.values.map(val => {
                 return {
                     targetPosition: val,
                     propertyName: ''
                 };
             });
         } else {
-            result.singleTarget = {
+            nextPointer.singleTarget = {
                 propertyName: '',
                 targetPosition: nextValue.value
             };
         }
 
-        this.pointerHierarchy = [nextValue.values ? nextValue.values : nextValue.value, ...this.pointerHierarchy];
-
-        return result;
+        return nextPointer;
     }
 
     protected getNextValue(pointer: PropertyPointer): PropertyValue {

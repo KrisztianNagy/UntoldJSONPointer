@@ -1,7 +1,7 @@
-import parser from './parser';
-import { QueryBuilder } from './query-builder';
-import { QueryProcessor } from './query-processor';
-import { MappedResult } from './models/mapped-result';
+import parser from './parsing/parser';
+import { QueryBuilder } from './parsing/query-builder';
+import { QueryProcessor } from './processing/query-processor';
+import { MappedResult } from './processing/mapped-result';
 import { QueryElement } from './models/query-structure';
 import { QueryResult } from './models/query-result';
 
@@ -32,8 +32,6 @@ export default class JSONPointer {
             const processor = new QueryProcessor();
             const result = processor.process(<QueryElement>parsedQuery.query, json);
             const mappedResult = new MappedResult(true, result);
-
-            mappedResult.pointerHierarchy = processor.pointerHierarchy;
 
             return mappedResult;
         }

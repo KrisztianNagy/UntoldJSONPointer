@@ -7,23 +7,26 @@ describe('Pointer hierarchy', () => {
         const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.weapon.name');
 
-        expect(result.pointerHierarchy).not.eq(null);
-        expect(result.pointerHierarchy.length).eq(2);
+        expect(result.parents()).not.eq(null);
+        expect(result.parents().length).eq(2);
     });
 
     it('should contain previous references for filters', () => {
         const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.items{ .weight >= 1}');
 
-        expect(result.pointerHierarchy).not.eq(null);
-        expect(result.pointerHierarchy.length).eq(2);
+        expect(result.parentsAt(1)).not.eq(null);
+        expect(result.parentsAt(1).length).eq(2);
     });
 
     it('should contain previous references for filter properties', () => {
         const mapper = new JSONPointer();
-        const result = mapper.executeQuery(character, '.items{ .weight >= 1}.name');
+        const result = mapper.executeQuery(character, '.items{ .weight >= 1}|name');
 
-        expect(result.pointerHierarchy).not.eq(null);
-        expect(result.pointerHierarchy.length).eq(3);
+        expect(result.parentsAt(1)).not.eq(null);
+        expect(result.parentsAt(1).length).eq(3);
+
+        expect(result.parentsAt(2)).not.eq(null);
+        expect(result.parentsAt(2).length).eq(3);
     });
 });

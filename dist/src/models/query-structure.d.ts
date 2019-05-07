@@ -1,4 +1,4 @@
-import { OperationType } from './operation-type';
+import { OperationType } from '../enum/operation-type';
 export interface QueryElement {
     operationType: OperationType;
     operationPayload: string | number | boolean | null | IdentifierPayload | ComparisionPayload | OperatorPlusComparisonPayload | OperatorHierarchyPayload | OperatorPlusFilterScopePayload;

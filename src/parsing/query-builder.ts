@@ -7,8 +7,8 @@ import {
     OperatorHierarchyElement,
     OperatorHierarchyElementMember,
     OperatorPlusFilterScopeElement
-} from './models/query-structure';
-import { OperationType } from './models/operation-type';
+} from '../models/query-structure';
+import { OperationType } from '../enum/operation-type';
 
 export class QueryBuilder {
     json: any;
