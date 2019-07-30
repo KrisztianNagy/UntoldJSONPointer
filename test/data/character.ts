@@ -1,11 +1,13 @@
 const character = {
     name: 'Conan',
+
     weapon: {
         name: 'sword',
         price: 1,
         style: {
             color: 'red'
-        }
+        },
+        'original owner': 'Bob'
     },
     items: [
         {
@@ -52,7 +54,8 @@ const character = {
             quantity: 1,
             equipped: null
         }
-    ]
+    ],
+    'has space': 'this has space'
 };
 
 export default character;

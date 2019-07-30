@@ -86,14 +86,17 @@ result.getSingle();
 
 ### Working with Path
 
-Every member in the path are being identified with the '.' character. That's also true for the root member.
+Every member in the path are being identified with the '.' character. That's also true for the root member. You have to put the path parts between string
+literals if they contain space character.
 
 ```javascript
 const nameOfCharacter = pointer.executeQuery(character, '.name');
 const nameOfWeapon = pointer.executeQuery(character, '.weapon.name');
+const originalOwnerHasSpace = pointer.executeQuery(character, '.weapon."original owner');
 
 console.log(nameOfCharacter.getSingle()); // 'Conan'
 console.log(nameOfWeapon.getSingle()); // 'sword'
+console.log(originalOwnerHasSpace.getSingle()); // 'Bob'
 ```
 
 You don't have to worry about missing members in your JSON.

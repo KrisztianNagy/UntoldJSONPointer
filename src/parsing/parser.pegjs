@@ -88,6 +88,7 @@ MemberName
   = head:LetterWithoutNumber tail:LetterWithNumber* { 
       return head + (tail ? tail.join('') : '');
     }
+  /StringLiteral
 
 Indexer 
   = '[' WhiteSpace index:Index WhiteSpace ']' {
@@ -100,7 +101,7 @@ Index
 
 
 LetterWithoutNumber
-  = [a-zA-Z]
+  = [a-zA-Z$]
 
 LetterWithNumber
   = [a-zA-Z0-9]

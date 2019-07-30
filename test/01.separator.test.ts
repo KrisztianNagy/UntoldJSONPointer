@@ -12,12 +12,28 @@ describe('Separator', () => {
         expect(result.getSingle()).eq('Conan');
     });
 
+    it('should parse space containing member from root scope', () => {
+        const mapper = new JSONPointer();
+        const result = mapper.executeQuery(character, '."has space"');
+
+        expect(result.isQueryValid).eq(true);
+        expect(result.getSingle()).eq('this has space');
+    });
+
     it('should parse deep members', () => {
         const mapper = new JSONPointer();
         const result = mapper.executeQuery(character, '.weapon.name');
 
         expect(result.isQueryValid).eq(true);
         expect(result.getSingle()).eq('sword');
+    });
+
+    it('should parse deep members containing space', () => {
+        const mapper = new JSONPointer();
+        const result = mapper.executeQuery(character, '.weapon."original owner"');
+
+        expect(result.isQueryValid).eq(true);
+        expect(result.getSingle()).eq('Bob');
     });
 
     it('should return null when path does not exist', () => {
