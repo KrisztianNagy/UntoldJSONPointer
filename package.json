@@ -21,7 +21,7 @@
         "babel-loader": "^8.0.5",
         "chai": "^4.2.0",
         "copy-webpack-plugin": "^5.0.0",
-        "mocha": "^6.0.2",
+        "mocha": "^10.2.0",
         "pegjs-loader": "^0.5.4",
         "source-map-loader": "^0.2.4",
         "tslint-config-prettier": "^1.18.0",
